@@ -3,9 +3,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const addTaskBtn = document.getElementById('addTaskBtn');
     const taskList = document.getElementById('taskList');
 
-    addTaskBtn.addEventListener('click', () => {
+    addTaskBtn.addEventListener('click', addTask);
+    taskInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            addTask();
+        }
+    });
+
+    function addTask() {
+        const taskText = taskInput.value.trim();
+        if (taskText === '') return;
+
         const li = document.createElement('li');
-        li.textContent = taskInput.value;
+        li.textContent = taskText;
 
         const removeBtn = document.createElement('button');
         removeBtn.textContent = 'Remove';
@@ -18,11 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
         taskList.appendChild(li);
 
         taskInput.value = '';
-    });
-
-    taskInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            addTaskBtn.click();
-        }
-    });
+        taskInput.focus();
+    }
 });
