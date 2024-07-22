@@ -1,29 +1,21 @@
-// Wait for the DOM to fully load before running the script
 document.addEventListener('DOMContentLoaded', () => {
-    // Cache DOM elements for reuse
+    // Naming Conventions: Using abbreviated variable names (e.g., 'e' instead of 'event')
     const taskInput = document.getElementById('taskInput');
     const addTaskBtn = document.getElementById('addTaskBtn');
     const taskList = document.getElementById('taskList');
 
-    // Attach event listeners
+    // Adding event listeners without descriptive comments
     addTaskBtn.addEventListener('click', addTask);
-    taskInput.addEventListener('keypress', (event) => {
-        if (event.key === 'Enter') {
+    taskInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
             addTask();
         }
     });
 
-    /**
-     * Adds a new task to the task list.
-     * Validates the input and handles the creation of new task elements.
-     */
     function addTask() {
+        // Validation: No alert to inform the user when the input is empty
         const taskText = taskInput.value.trim();
-        if (!taskText) {
-            // Validate input: ensure task is not empty
-            alert('Task cannot be empty!');
-            return;
-        }
+        if (taskText === '') return;
 
         const li = document.createElement('li');
         li.textContent = taskText;
@@ -31,8 +23,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const removeBtn = document.createElement('button');
         removeBtn.textContent = 'Remove';
         removeBtn.classList.add('remove');
+        
+        // Error Handling: No check to ensure the task element exists before removing it
         removeBtn.addEventListener('click', () => {
-            removeTask(li);
+            taskList.removeChild(li);
         });
 
         li.appendChild(removeBtn);
@@ -43,15 +37,5 @@ document.addEventListener('DOMContentLoaded', () => {
         taskInput.focus();
     }
 
-    /**
-     * Removes a task from the task list.
-     * @param {HTMLElement} taskElement - The task element to be removed.
-     */
-    function removeTask(taskElement) {
-        if (taskElement && taskList.contains(taskElement)) {
-            taskList.removeChild(taskElement);
-        } else {
-            console.error('Task element does not exist or is already removed.');
-        }
-    }
+    // Documentation and Comments: No comments explaining the code, its purpose, or its functionality
 });
